@@ -24,7 +24,7 @@ public class TestQueue {
         ExecutorService pool = Executors.newFixedThreadPool(10);
 
         BlockingQueue<Future<Map<String, FileInputStream>>> queue =
-                new ArrayBlockingQueue<Future<Map<String, FileInputStream>>>(10);
+                new ArrayBlockingQueue<Future<Map<String, FileInputStream>>>(100);
 
         System.out.println("-------------文件读、写任务开始时间：" );
         for (int i = 0; i < filePathsList.size(); i++) {
