@@ -8,7 +8,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.StringTokenizer;
-
+/*
+* @autor rainny
+* @date 20190613
+*
+* */
 public class TestWord {
         public static String readWord(String path) {
             String buffer = "";
@@ -34,15 +38,35 @@ public class TestWord {
         public static void main(String[] args) {
        //	String content = tp.readWord("D:\\20180807.doc");
             String content = TestWord.readWord("D:\\文档\\发票种类名称.docx");
-            StringTokenizer token =new StringTokenizer(content,"\\n");
+            StringTokenizer token =new StringTokenizer(content,"\n");
 
-            if(token.nextToken().indexOf("合计金额")!=-1){
-                System.out.println("true");
+            while(token.hasMoreTokens()){
+                String temp=token.nextToken();
+//                System.out.println(temp+"11111");
+                if(temp.contains("合计金额")){
+                    String []  str= temp.split(":");
+                    System.out.println("合计金额="+str[1]);
+                }else if(temp.contains("合计税额")){
+                    String []  str= temp.split(":");
+                    System.out.println("合计税额="+str[1]);
+                }else if(temp.contains("价税合计(小写)")){
+                    String []  str= temp.split(":");
+                    System.out.println("价税合计(小写)="+str[1]);
+                }else if(temp.contains("销货方名称")){
+                    String []  str= temp.split(":");
+                    System.out.println("销货方名称="+str[1]);
+                }else {
+
+                }
             }
-            String test= content.substring(content.indexOf("合计金额:"),content.indexOf("销货方纳税人识别号"));
+//
+//            if(token.nextToken().indexOf("合计金额")!=-1){
+//                System.out.println("true");
+//            }
+//            String test= content.substring(content.indexOf("合计金额:"),content.indexOf("销货方纳税人识别号"));
 
 //            String test2= content.substring(content.indexOf("价税合计"),content.indexOf("销货方纳税人识别号"));
-            System.out.println(test);
+//            System.out.println(test);
 //           String s=test.substring(test.indexOf(":"));
 //            System.out.println(s);
 //            while(token.hasMoreTokens()){
