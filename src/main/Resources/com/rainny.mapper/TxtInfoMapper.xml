@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rainny.mapper.TxtInfoMapper" >
+    <resultMap id="BaseResultMap" type="TxtInfo" >
+        <id column="ID" property="id" jdbcType="BIGINT" />
+        <result column="txtName" property="txtName" jdbcType="VARCHAR" />
+        <result column="readTime" property="readTime" jdbcType="VARCHAR" />
+        <result column="totalMoney" property="totalMoney" jdbcType="VARCHAR" />
+        <result column="totalTax" property="totalTax" jdbcType="VARCHAR" />
+        <result column="totalTM" property="totalTM" jdbcType="VARCHAR" />
+        <result column="sellerName" property="sellerName" jdbcType="VARCHAR" />
+        <result column="billTime" property="billTime" jdbcType="VARCHAR" />
+    </resultMap>
+    <!--<resultMap id="ResultMapWithBLOBs" type="TxtInfo" extends="BaseResultMap" >-->
+        <!--<result column="billTime" property="operMemo" jdbcType="LONGVARCHAR" />-->
+    <!--</resultMap>-->
+    <sql id="Base_Column_List" >
+        ID, txtName, readTime, totalMoney, totalTax, totalTM, sellerName,billTime
+    </sql>
+
+    <sql id="getConditions">
+        <if test="sellerName != null  and sellerName != ''">and sellerName =#{sellerName}</if>
+        <if test="billTime != null  and billTime != ''">and billTime =#{billTime}</if>
+
+    </sql>
+
+
+    <select id="getList" resultMap="BaseResultMap" parameterType="TxtInfo">
+        select * from  txtinfo
+        <where>
+            <include refid="getConditions"/>
+        </where>
+    </select>
+
+    <select id="getPaginatedList" resultMap="BaseResultMap" parameterType="TxtInfo">
+        select * from txtinfo
+        <where>
+            <include refid="getConditions" />
+        </where>
+        <if test="map.first !=null and map.count">limit ${map.first}, ${map.count}</if>
+    </select>
+
+    <select id="getCount" resultType="Integer" parameterType="TxtInfo">
+        select count(*) from txtinfo
+        <where>
+            <include refid="getConditions" />
+        </where>
+    </select>
+
+    <sql id="Blob_Column_List" >
+        billTime
+    </sql>
+
+    <select id="getOne" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from txtinfo
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="delete" parameterType="java.lang.Long" >
+        delete from txtinfo
+        where ID = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert1" parameterType="TxtInfo" >
+        insert into txtinfo ( ID, txtName, readTime, totalMoney, totalTax, totalTM, sellerName, billTime)
+        values (#{id}, #{txtName,jdbcType=VARCHAR}, #{readTime,jdbcType=VARCHAR},
+        #{totalMoney,jdbcType=VARCHAR}, #{totalTax,jdbcType=VARCHAR}, #{totalTM,jdbcType=VARCHAR},
+        #{sellerName,jdbcType=VARCHAR}, #{billTime,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insert" parameterType="TxtInfo" >
+        insert into txtinfo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="txtName != null" >
+                txtName,
+            </if>
+            <if test="readTime != null" >
+                readTime,
+            </if>
+            <if test="totalMoney != null" >
+                totalMoney,
+            </if>
+            <if test="totalTax != null" >
+                totalTax,
+            </if>
+            <if test="totalTM != null" >
+                totalTM,
+            </if>
+            <if test="sellerName != null" >
+                sellerName,
+            </if>
+            <if test="billTime != null" >
+                billTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="txtName != null" >
+                #{txtName,jdbcType=VARCHAR},
+            </if>
+            <if test="readTime != null" >
+                #{readTime,jdbcType=VARCHAR},
+            </if>
+            <if test="totalMoney != null" >
+                #{totalMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTax != null" >
+                #{totalTax,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTM != null" >
+                #{totalTM,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerName != null" >
+                #{sellerName,jdbcType=INTEGER},
+            </if>
+            <if test="billTime != null" >
+                #{billTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="TxtInfo" >
+        update txtinfo
+        <set >
+            <if test="txtName != null" >
+                txtName = #{txtName,jdbcType=VARCHAR},
+            </if>
+            <if test="readTime != null" >
+                readTime = #{readTime,jdbcType=VARCHAR},
+            </if>
+            <if test="totalMoney != null" >
+                totalMoney = #{totalMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTax != null" >
+                totalTax = #{totalTax,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTM != null" >
+                totalTM = #{totalTM,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerName != null" >
+                sellerName = #{sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="billTime != null" >
+                billTime = #{billTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="TxtInfo" >
+        update txtinfo
+        set txtName = #{txtName,jdbcType=VARCHAR},
+        readTime = #{readTime,jdbcType=VARCHAR},
+        totalMoney = #{totalMoney,jdbcType=VARCHAR},
+        totalTax = #{totalTax,jdbcType=VARCHAR},
+        totalTM = #{totalTM,jdbcType=VARCHAR},
+        sellerName = #{sellerName,jdbcType=VARCHAR},
+        billTime = #{billTime,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="TxtInfo" >
+        update txtinfo
+        set txtName = #{txtName,jdbcType=VARCHAR},
+        readTime = #{readTime,jdbcType=VARCHAR},
+        totalMoney = #{totalMoney,jdbcType=VARCHAR},
+        totalTax = #{totalTax,jdbcType=VARCHAR},
+        totalTM = #{totalTM,jdbcType=VARCHAR},
+        sellerName = #{sellerName,jdbcType=VARCHAR},
+         billTime = #{billTime,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
