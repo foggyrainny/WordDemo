@@ -13,34 +13,35 @@ import java.util.List;
  * Created by Administrator on 2019/6/17.
  */
 @Repository
-public class TxtInfoDaoImpl implements TxtInfoDao{
+public class TxtInfoDaoImpl implements TxtInfoDao {
 
     private static final Logger logger = Logger.getLogger(TxtInfoDaoImpl.class);
 
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate ;
+    private SqlSessionTemplate sqlSessionTemplate;
 
-    public SqlSessionTemplate getSqlSessionTemplate(){
+    public SqlSessionTemplate getSqlSessionTemplate() {
         logger.info(this.sqlSessionTemplate);
         return this.sqlSessionTemplate;
     }
+
     @Override
-    public void InserList(List<TxtInfo> txtInfoList) {
-        this.getSqlSessionTemplate().insert("insert",txtInfoList);
+    public void insertList(List<TxtInfo> txtInfoList) {
+        this.getSqlSessionTemplate().insert("insert", txtInfoList);
     }
 
     @Override
     public List<TxtInfo> getList(TxtInfo txtInfo) {
-        return this.getSqlSessionTemplate().selectOne("getOne",txtInfo);
+        return this.getSqlSessionTemplate().selectList("getList", txtInfo);
     }
 
     @Override
     public void deleteOne(String txtname) {
-
+        this.getSqlSessionTemplate().delete("delete", txtname);
     }
 
     @Override
     public void getOne(TxtInfo txtInfo) {
-
+        this.getSqlSessionTemplate().selectOne("getOne", txtInfo);
     }
 }
