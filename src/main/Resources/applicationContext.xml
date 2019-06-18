@@ -42,7 +42,7 @@
     
      <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />		
-		<property name="typeAliasesPackage" value="timmy.train.entity" />
+		<property name="typeAliasesPackage" value="com.rainny.object" />
 		<property name="mapperLocations" value="classpath*:com/rainny.mapper/*Mapper.xml" />
 	</bean>
 	<!-- sqlSessionTemplate 对mybatis的SqlSession对象的封装、包装 -->
