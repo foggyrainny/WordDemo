@@ -9,8 +9,9 @@ import java.util.List;
  */
 
 public interface TxtInfoDao {
+
      //批量插入数据
-     void  InserList(List<TxtInfo> txtInfoList);
+     void  insertList(List<TxtInfo> txtInfoList);
      //根据日期和销货方名称查询数据
      List<TxtInfo> getList(TxtInfo txtInfo);
      //根据文档名称删除数据
