@@ -3,44 +3,44 @@
 <mapper namespace="com.rainny.mapper.TxtInfoMapper" >
     <resultMap id="BaseResultMap" type="TxtInfo" >
         <id column="ID" property="id" jdbcType="BIGINT" />
-        <result column="txtName" property="txtName" jdbcType="VARCHAR" />
-        <result column="readTime" property="readTime" jdbcType="VARCHAR" />
-        <result column="totalMoney" property="totalMoney" jdbcType="VARCHAR" />
-        <result column="totalTax" property="totalTax" jdbcType="VARCHAR" />
-        <result column="totalTM" property="totalTM" jdbcType="VARCHAR" />
-        <result column="sellerName" property="sellerName" jdbcType="VARCHAR" />
-        <result column="billTime" property="billTime" jdbcType="VARCHAR" />
+        <result column="txtname" property="txtName" jdbcType="VARCHAR" />
+        <result column="readtime" property="readTime" jdbcType="VARCHAR" />
+        <result column="totalmoney" property="totalMoney" jdbcType="VARCHAR" />
+        <result column="totaltax" property="totalTax" jdbcType="VARCHAR" />
+        <result column="totaltm" property="totalTM" jdbcType="VARCHAR" />
+        <result column="sellername" property="sellerName" jdbcType="VARCHAR" />
+        <result column="billtime" property="billTime" jdbcType="VARCHAR" />
     </resultMap>
     <!--<resultMap id="ResultMapWithBLOBs" type="TxtInfo" extends="BaseResultMap" >-->
         <!--<result column="billTime" property="operMemo" jdbcType="LONGVARCHAR" />-->
     <!--</resultMap>-->
     <sql id="Base_Column_List" >
-        ID, txtName, readTime, totalMoney, totalTax, totalTM, sellerName,billTime
+        ID, txtname, readtime, totalmoney, totaltax, totaltm, sellername,billtime
     </sql>
 
-    <sql id="getConditions">
+   <!-- <sql id="getConditions">
         <if test="sellerName != null  and sellerName != ''">and sellerName =#{sellerName}</if>
         <if test="billTime != null  and billTime != ''">and billTime =#{billTime}</if>
 
-    </sql>
+    </sql>-->
 
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="TxtInfo">
+   <!-- <select id="getList" resultMap="BaseResultMap" parameterType="TxtInfo">
         select * from  txtinfo
         <where>
             <include refid="getConditions"/>
         </where>
-    </select>
+    </select>-->
 
-    <select id="getPaginatedList" resultMap="BaseResultMap" parameterType="TxtInfo">
+    <!--<select id="getPaginatedList" resultMap="BaseResultMap" parameterType="TxtInfo">
         select * from txtinfo
         <where>
             <include refid="getConditions" />
         </where>
         <if test="map.first !=null and map.count">limit ${map.first}, ${map.count}</if>
-    </select>
+    </select>-->
 
-    <select id="getCount" resultType="Integer" parameterType="TxtInfo">
+    <!--<select id="getCount" resultType="Integer" parameterType="TxtInfo">
         select count(*) from txtinfo
         <where>
             <include refid="getConditions" />
@@ -49,32 +49,30 @@
 
     <sql id="Blob_Column_List" >
         billTime
-    </sql>
+    </sql>-->
 
-    <select id="getOne" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    <!--<select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
         select
         <include refid="Base_Column_List" />
         ,
         <include refid="Blob_Column_List" />
         from txtinfo
         where ID = #{id,jdbcType=BIGINT}
-    </select>
-    <delete id="delete" parameterType="java.lang.Long" >
+    </select>-->
+    <!--<delete id="delete" parameterType="java.lang.Long" >
         delete from txtinfo
         where ID = #{id,jdbcType=BIGINT}
-    </delete>
-    <insert id="insert1" parameterType="TxtInfo" >
-        insert into txtinfo ( ID, txtName, readTime, totalMoney, totalTax, totalTM, sellerName, billTime)
-        values (#{id}, #{txtName,jdbcType=VARCHAR}, #{readTime,jdbcType=VARCHAR},
+    </delete>-->
+    <!--<insert id="insert1" parameterType="TxtInfo" >
+        insert into txtinfo (txtName, readTime, totalMoney, totalTax, totalTM, sellerName, billTime)
+        values (#{txtName,jdbcType=VARCHAR}, #{readTime,jdbcType=VARCHAR},
         #{totalMoney,jdbcType=VARCHAR}, #{totalTax,jdbcType=VARCHAR}, #{totalTM,jdbcType=VARCHAR},
         #{sellerName,jdbcType=VARCHAR}, #{billTime,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insert" parameterType="TxtInfo" >
+    </insert>-->
+    <!--<insert id="insert" parameterType="TxtInfo" >
         insert into txtinfo
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                ID,
-            </if>
+
             <if test="txtName != null" >
                 txtName,
             </if>
@@ -98,9 +96,7 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                #{id,jdbcType=BIGINT},
-            </if>
+
             <if test="txtName != null" >
                 #{txtName,jdbcType=VARCHAR},
             </if>
@@ -123,8 +119,18 @@
                 #{billTime,jdbcType=VARCHAR},
             </if>
         </trim>
+    </insert>-->
+    <!--open="(" separator="," close=")"-->
+    <insert id="insertList" parameterType="java.util.List">
+        insert into txtinfo (txtname,readtime,totalmoney,totaltax,totaltm,sellername,billtime) values
+        <foreach  collection="list" item="TxtInfo" index="index" separator="," >
+            (#{TxtInfo.txtName},#{TxtInfo.readTime},#{TxtInfo.totalMoney},#{TxtInfo.totalTax},#{TxtInfo.totalTM},
+             #{TxtInfo.sellerName},#{TxtInfo.billTime}
+            )
+        </foreach>
     </insert>
-    <update id="update" parameterType="TxtInfo" >
+
+    <!--<update id="update" parameterType="TxtInfo" >
         update txtinfo
         <set >
             <if test="txtName != null" >
@@ -150,8 +156,8 @@
             </if>
         </set>
         where ID = #{id,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="TxtInfo" >
+    </update>-->
+    <!--<update id="updateByPrimaryKeyWithBLOBs" parameterType="TxtInfo" >
         update txtinfo
         set txtName = #{txtName,jdbcType=VARCHAR},
         readTime = #{readTime,jdbcType=VARCHAR},
@@ -161,8 +167,8 @@
         sellerName = #{sellerName,jdbcType=VARCHAR},
         billTime = #{billTime,jdbcType=VARCHAR}
         where ID = #{id,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="TxtInfo" >
+    </update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="TxtInfo" >
         update txtinfo
         set txtName = #{txtName,jdbcType=VARCHAR},
         readTime = #{readTime,jdbcType=VARCHAR},
@@ -171,6 +177,6 @@
         totalTM = #{totalTM,jdbcType=VARCHAR},
         sellerName = #{sellerName,jdbcType=VARCHAR},
          billTime = #{billTime,jdbcType=VARCHAR}
-        where ID = #{id,jdbcType=BIGINT}
-    </update>
+        where ID = #{id,jdbcType=BIGINT}-->
+    <!--</update>-->
 </mapper>
