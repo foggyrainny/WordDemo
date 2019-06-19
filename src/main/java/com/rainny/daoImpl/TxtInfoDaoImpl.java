@@ -27,10 +27,10 @@ public class TxtInfoDaoImpl implements TxtInfoDao {
 
     @Override
     public void insertList(List<TxtInfo> txtInfoList) {
-        this.getSqlSessionTemplate().insert("insert", txtInfoList);
+        this.getSqlSessionTemplate().insert("insertList", txtInfoList);
     }
 
-    @Override
+    /*@Override
     public List<TxtInfo> getList(TxtInfo txtInfo) {
         return this.getSqlSessionTemplate().selectList("getList", txtInfo);
     }
@@ -44,4 +44,4 @@ public class TxtInfoDaoImpl implements TxtInfoDao {
     public void getOne(TxtInfo txtInfo) {
         this.getSqlSessionTemplate().selectOne("getOne", txtInfo);
     }
-}
+*/}

@@ -11,7 +11,7 @@ import java.util.concurrent.*;
 public class TestQueue {
 
     public static void main(String[] args) {
-        File f = new File("C://Users//Administrator//Downloads");
+        File f = new File("D:\\文档");
         // 文件总数
         final List<File> filePathsList = new ArrayList<File>();
         File[] filePaths = f.listFiles();

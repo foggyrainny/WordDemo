@@ -7,9 +7,7 @@ import com.rainny.utils.TestRight;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +29,7 @@ public class TxtInfoController {
     private TxtInfoService txtInfoService;
 
     @RequestMapping(value="/insertList")
+    @ResponseBody
     public String list(HttpServletRequest request, @RequestParam("path") String path, ModelMap model) throws Exception {
         //path文档所在的文件夹
          path="D:\\文档";
@@ -46,6 +45,8 @@ public class TxtInfoController {
                     boolean flag = TestRight.test(Double.valueOf(txtInfo.getTotalMoney()), Double.valueOf(txtInfo.getTotalTax()), Double.valueOf(txtInfo.getTotalTM()));
                     if (flag) {
                         list.add(txtInfo);
+//                        logger.info(list.size());
+
                     } else {
                         //文本解析错误打印日志
                         logger.info(txtInfo.getTxtName());
@@ -59,9 +60,9 @@ public class TxtInfoController {
 
 //           logger.info(list.size());
         }
-
+        System.out.println("list="+list.size());
         txtInfoService.createInsertList(list);
-        return "list";
+        return "login";
     }
 
 }

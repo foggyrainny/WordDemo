@@ -9,8 +9,7 @@ import java.util.concurrent.Future;
 /**
  * Created by Administrator on 2019/6/13.
  */
-public  class MyCallableConsumer implements Runnable
-{
+public class MyCallableConsumer implements Runnable {
     private String fileName = "";
     private BlockingQueue<Future<Map<String, FileInputStream>>> queue;
     private FileInputStream fis = null;
@@ -21,21 +20,18 @@ public  class MyCallableConsumer implements Runnable
     private FileWriter fw = null;
     private BufferedWriter bw = null;
 
-    public MyCallableConsumer(BlockingQueue<Future<Map<String, FileInputStream>>> queue2)
-    {
+    public MyCallableConsumer(BlockingQueue<Future<Map<String, FileInputStream>>> queue2) {
         this.queue = queue2;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         try {
             Future<Map<String, FileInputStream>> future = queue.take();
             Map<String, FileInputStream> map = future.get();
 
             Set<String> set = map.keySet();
-            for (Iterator<String> iter = set.iterator(); iter.hasNext();)
-            {
+            for (Iterator<String> iter = set.iterator(); iter.hasNext(); ) {
                 fileName = iter.next().toString();
                 fis = map.get(fileName);
 

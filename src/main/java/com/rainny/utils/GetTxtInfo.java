@@ -3,6 +3,7 @@ package com.rainny.utils;
 import com.rainny.object.TxtInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.impl.Log4JLogger;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -14,13 +15,15 @@ import java.util.List;
  * Created by Administrator on 2019/6/17.
  */
 public class GetTxtInfo {
-    private Log4JLogger logger = new Log4JLogger();
+    private static final Logger logger = Logger.getLogger(GetTxtInfo.class.getName());
 
     public static void readWantedText(String url, TxtInfo txtInfo) {
         txtInfo.setTxtName(url);
+        logger.info("文件名"+txtInfo.getTxtName());
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         txtInfo.setReadTime(format.format(date));
+        logger.info("入库日期"+txtInfo.getReadTime());
         try {
             InputStreamReader fr = new InputStreamReader(new FileInputStream(url), "UTF-8");
             BufferedReader br = new BufferedReader(fr);
@@ -31,25 +34,25 @@ public class GetTxtInfo {
                 if (temp != null && temp.contains("合计金额")) {
                     str = temp.substring(5);
                     txtInfo.setTotalMoney(str);
-                    System.out.println("合计金额=" + str);
+                    logger.info("合计金额=" + str);
                 } else if (temp != null && temp.contains("合计税额")) {
                     str = temp.substring(5);
                     txtInfo.setTotalTax(str);
-                    System.out.println("合计税额=" + str);
+                    logger.info("合计税额=" + str);
                 } else if (temp != null && temp.contains("价税合计(小写)")) {
                     str = temp.substring(9);
                     txtInfo.setTotalTM(str);
-                    System.out.println("价税合计(小写)=" + str);
+                    logger.info("价税合计(小写)=" + str);
                 } else if (temp != null && temp.contains("销货方名称")) {
                     str = temp.substring(6);
                     txtInfo.setSellerName(str);
-                    System.out.println("销货方名称=" + str);
+                    logger.info("销货方名称=" + str);
                 } else if (temp != null && temp.contains("开票日期")) {
                     str = temp.substring(5);
                     if (!StringUtils.isEmpty(str)) {
                         String str2 = str.replace("年", "").replace("月", "").replace("日", "");
                         txtInfo.setBillTime(str2);
-                        System.out.println("开票日期=" + txtInfo.getBillTime());
+                        logger.info("开票日期=" + txtInfo.getBillTime());
                     }
 
 
@@ -89,7 +92,7 @@ public class GetTxtInfo {
 
             }
 
-            System.out.println(list.size());
+            logger.info(list.size());
         }
 
     }
