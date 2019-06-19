@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/6/13.
@@ -7,6 +9,7 @@ public class TestTxt {
 
     public static void readWantedText(String url, String wanted) {
         try {
+//            InputStreamReader fr = new InputStreamReader(new FileInputStream(url),"gbk");
             InputStreamReader fr = new InputStreamReader(new FileInputStream(url),"gbk");
             BufferedReader br = new BufferedReader(fr);
             String temp = "";// 用于临时保存每次读取的内容
@@ -27,7 +30,11 @@ public class TestTxt {
     }
 
     public static void main(String[] args){
-       TestTxt.readWantedText("C:\\Users\\Administrator\\Downloads\\三日重复数据查询.txt","我爱你");
+        File f = new File("D:\\文档");
+        // 文件总数
+        final List<File> filePathsList = new ArrayList<File>();
+        File[] filePaths = f.listFiles();
+
 
     }
 }
