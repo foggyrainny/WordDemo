@@ -5,11 +5,11 @@ import com.rainny.service.TxtInfoService;
 import com.rainny.utils.GetTxtInfo;
 import com.rainny.utils.TestRight;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +22,7 @@ import java.util.logging.Logger;
  * Created by rainny on 2019/6/17.
  */
 @Controller
+@RequestMapping(value = "/demo")
 public class TxtInfoController {
 
     private static final Logger logger = Logger.getLogger(TxtInfoController.class.getName());
@@ -29,8 +30,8 @@ public class TxtInfoController {
     @Resource
     private TxtInfoService txtInfoService;
 
-    @RequestMapping("/insertList")
-    public String list(HttpServletRequest request, @ModelAttribute("path") String path, ModelMap model) throws Exception {
+    @RequestMapping(value="/insertList")
+    public String list(HttpServletRequest request, @RequestParam("path") String path, ModelMap model) throws Exception {
         //path文档所在的文件夹
          path="D:\\文档";
         File file = new File(path);

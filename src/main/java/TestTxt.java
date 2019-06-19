@@ -7,17 +7,19 @@ import java.util.List;
  */
 public class TestTxt {
 
-    public static void readWantedText(String url, String wanted) {
+
+    public static String readWantedText(String url, String wanted) {
+        String temps = "" ;
         try {
-//            InputStreamReader fr = new InputStreamReader(new FileInputStream(url),"gbk");
             InputStreamReader fr = new InputStreamReader(new FileInputStream(url),"gbk");
             BufferedReader br = new BufferedReader(fr);
             String temp = "";// 用于临时保存每次读取的内容
+
             while (temp != null) {
                 temp = br.readLine();
-                System.out.println(temp);
+//                System.out.println(temp);
                 if (temp != null && temp.contains(wanted)) {
-                    System.out.println(temp);
+                   temps= temp;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -27,14 +29,21 @@ public class TestTxt {
 // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return temps;
     }
 
     public static void main(String[] args){
-        File f = new File("D:\\文档");
-        // 文件总数
-        final List<File> filePathsList = new ArrayList<File>();
-        File[] filePaths = f.listFiles();
 
+        File file=new File("d:\\文档");
+        final List<File> filePathsList = new ArrayList<File>();
+        File[] filePaths = file.listFiles();
+//        System.out.println(filePaths[0]+"  11111");
+        for (File s : filePaths) {
+        String  aa=TestTxt.readWantedText(s.toString(),"我爱你");
+        System.out.println(aa+" 11");
+        }
+
+//       TestTxt.readWantedText("C:\\Users\\Administrator\\Downloads\\三日重复数据查询.txt","我爱你");
 
     }
 }
