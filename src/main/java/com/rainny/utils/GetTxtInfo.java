@@ -6,9 +6,7 @@ import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,12 +16,7 @@ public class GetTxtInfo {
     private static final Logger logger = Logger.getLogger(GetTxtInfo.class.getName());
 
     public static void readWantedText(String url, TxtInfo txtInfo) {
-        txtInfo.setTxtName(url);
-        logger.info("文件名"+txtInfo.getTxtName());
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        txtInfo.setReadTime(format.format(date));
-        logger.info("入库日期"+txtInfo.getReadTime());
+
         try {
             InputStreamReader fr = new InputStreamReader(new FileInputStream(url), "UTF-8");
             BufferedReader br = new BufferedReader(fr);
@@ -59,6 +52,8 @@ public class GetTxtInfo {
                 }
 
             }
+            br.close();
+            fr.close();
         } catch (FileNotFoundException e) {
 // TODO Auto-generated catch block
             e.printStackTrace();

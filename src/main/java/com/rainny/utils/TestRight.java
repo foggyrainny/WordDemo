@@ -1,5 +1,6 @@
 package com.rainny.utils;
 
+import java.io.File;
 import java.text.NumberFormat;
 
 /**
@@ -29,5 +30,9 @@ public class TestRight {
 //        long time2=System.currentTimeMillis();
 //        System.out.println(time2-time1);
 //        System.out.println(b);
+        File file = new File("DFSDFSD");
+        System.out.println(file);
+        File[] filePaths = file.listFiles();
+        System.out.println(filePaths);
     }
 }
