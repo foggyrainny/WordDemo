@@ -6,6 +6,7 @@ import com.rainny.service.TxtInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,13 @@ public class TxtInfoServiceImpl implements TxtInfoService {
 
     @Override
     public void createInsertList(List<TxtInfo> txtInfoList) {
-        txtInfoDao.insertList(txtInfoList);
+        if(txtInfoList.size()<=50){
+            txtInfoDao.insertList(txtInfoList);
+        }else {
+            List<TxtInfo> txtInfoList2 =new ArrayList();
+
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 package com.rainny.utils;
 
 import com.rainny.object.TxtInfo;
+import org.apache.log4j.Logger;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.ooxml.POIXMLDocument;
 import org.apache.poi.ooxml.extractor.POIXMLTextExtractor;
@@ -9,11 +10,11 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 
 public class GetWordInfo {
+    private static final Logger logger = Logger.getLogger(GetWordInfo.class.getName());
 
     public static String readWord(String path) {
         String buffer = "";
@@ -28,11 +29,11 @@ public class GetWordInfo {
                 POIXMLTextExtractor extractor = new XWPFWordExtractor(opcPackage);
                 buffer = extractor.getText();
                 extractor.close();
-            } else {
-                System.out.println("此文件不是word文件！");
-            }
+            }/* else {
+               logger.error("此文件不是word文件！");
+            }*/
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.error(e);
         }
         return buffer;
     }
@@ -41,19 +42,14 @@ public class GetWordInfo {
         StringTokenizer token = new StringTokenizer(content, "\n");
         while (token.hasMoreTokens()) {
             String temp = token.nextToken();
-//                System.out.println(temp+"11111");
             if (temp.contains("合计金额")) {
                 txtInfo.setTotalMoney(temp.substring(5));
-//                System.out.println("合计金额="+str[1]);
             } else if (temp.contains("合计税额")) {
                 txtInfo.setTotalTax(temp.substring(5));
-//                System.out.println("合计税额="+str[1]);
             } else if (temp.contains("价税合计(小写)")) {
                 txtInfo.setTotalTM(temp.substring(9));
-//                System.out.println("价税合计(小写)="+str[1]);
             } else if (temp.contains("销货方名称")) {
                 txtInfo.setSellerName(temp.substring(6));
-//                System.out.println("销货方名称="+str[1]);
             } else if (temp.contains("开票日期")) {
                 txtInfo.setBillTime(temp.substring(5).replace("年", "").replace("月", "")
                         .replace("日", ""));

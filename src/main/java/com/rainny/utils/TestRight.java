@@ -26,13 +26,13 @@ public class TestRight {
     public static void main(String[] args) {
 //       boolean a= TestRight.test(79088.90,12654.22,91743.12);
 //       long time1=System.currentTimeMillis();
-//        boolean b= TestRight.test(70516.42,11282.63,81799.05);
+       boolean b= TestRight.test(70516.42,11282.63,81799.05);
 //        long time2=System.currentTimeMillis();
 //        System.out.println(time2-time1);
-//        System.out.println(b);
-        File file = new File("DFSDFSD");
-        System.out.println(file);
-        File[] filePaths = file.listFiles();
-        System.out.println(filePaths);
+       System.out.println(b);
+//        File file = new File("DFSDFSD");
+//        System.out.println(file);
+//        File[] filePaths = file.listFiles();
+//        System.out.println(filePaths);
     }
 }
