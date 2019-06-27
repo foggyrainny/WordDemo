@@ -119,10 +119,15 @@
       <version>4.3.18.RELEASE</version>
     </dependency>
     <!-- mysql驱动 -->
-    <dependency>
+    <!--<dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.28</version>
+    </dependency>-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.11</version>
     </dependency>
 
     <!-- c3p0数据源 -->
