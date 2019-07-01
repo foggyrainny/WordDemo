@@ -7,9 +7,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
- * Created by Administrator on 2019/6/13.
+ * Created by rainny on 2019/6/13.
  */
-public class MyCallableConsumer implements Runnable {
+public class MyCallableConsumer<main> implements Runnable {
     private String fileName = "";
     private BlockingQueue<Future<Map<String, FileInputStream>>> queue;
     private FileInputStream fis = null;
@@ -19,7 +19,6 @@ public class MyCallableConsumer implements Runnable {
     private InputStreamReader isr = null;
     private FileWriter fw = null;
     private BufferedWriter bw = null;
-
     public MyCallableConsumer(BlockingQueue<Future<Map<String, FileInputStream>>> queue2) {
         this.queue = queue2;
     }
@@ -68,6 +67,8 @@ public class MyCallableConsumer implements Runnable {
             e.printStackTrace();
         }
     }
-}
 
+
+
+}
 

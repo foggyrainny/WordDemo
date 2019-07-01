@@ -29,10 +29,11 @@ public class TestQueue {
         System.out.println("-------------文件读、写任务开始时间：" );
         for (int i = 0; i < filePathsList.size(); i++) {
             File temp = filePathsList.get(i);
+            System.out.println("this is "+temp);
             Future<Map<String, FileInputStream>> future = pool.submit(new MyCallableProducer(latch, temp));
             queue.add(future);
 
-            pool.execute(new MyCallableConsumer(queue));
+           pool.execute(new MyCallableConsumer(queue));
         }
 
         try {

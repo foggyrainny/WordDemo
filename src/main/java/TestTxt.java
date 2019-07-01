@@ -34,16 +34,17 @@ public class TestTxt {
 
     public static void main(String[] args){
 
-        File file=new File("d:\\文档");
-        final List<File> filePathsList = new ArrayList<File>();
-        File[] filePaths = file.listFiles();
-//        System.out.println(filePaths[0]+"  11111");
-        for (File s : filePaths) {
-        String  aa=TestTxt.readWantedText(s.toString(),"我爱你");
-        System.out.println(aa+" 11");
-        }
+//        File file=new File("d:\\文档");
+//        final List<File> filePathsList = new ArrayList<File>();
+//        File[] filePaths = file.listFiles();
+////        System.out.println(filePaths[0]+"  11111");
+//        for (File s : filePaths) {
+//        String  aa=TestTxt.readWantedText(s.toString(),"我爱你");
+//        System.out.println(aa+" 11");
+//        }
 
 //       TestTxt.readWantedText("C:\\Users\\Administrator\\Downloads\\三日重复数据查询.txt","我爱你");
+        System.out.println(("4_微信图片_20190613184505.jpg_2019-06-13_18-46-40(1).txt").endsWith(".txt"));
 
     }
 }
