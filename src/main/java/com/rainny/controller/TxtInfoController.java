@@ -106,14 +106,5 @@ public class TxtInfoController {
         return "commited counts: " + list.size();
     }
 
-    public static void main(String[] args) {
-
-
-//        txtInfoController.list("d:\\log");
-
-//        File file = new File("DFSDFSD");
-//        System.out.println(file);
-    }
-
 
 }

@@ -2,10 +2,11 @@ package com.rainny.object;
 
 /**
  * Created by rainny on 2019/6/14.
+ * 原来只提取txt文档内容的实体类，现已经扩展到也可以提取doc,docx格式的文档实体类
  */
 public class TxtInfo {
 
-    //txt文档名称
+    //文档名称
     private  String txtName;
     //存入数据库时间
     private String   readTime;
@@ -19,6 +20,8 @@ public class TxtInfo {
     private String sellerName;
     //开票时间
     private String  billTime;
+    //发票号码（唯一性标识）
+    private String   billNumber;
 
     public String getBillTime() {
         return billTime;
@@ -76,16 +79,25 @@ public class TxtInfo {
         this.sellerName = sellerName;
     }
 
+    public String getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
+    }
+
     @Override
     public String toString() {
         return "TxtInfo{" +
                 "txtName='" + txtName + '\'' +
                 ", readTime='" + readTime + '\'' +
-                ", totalMoney=" + totalMoney +
-                ", totalTax=" + totalTax +
-                ", totalTM=" + totalTM +
+                ", totalMoney='" + totalMoney + '\'' +
+                ", totalTax='" + totalTax + '\'' +
+                ", totalTM='" + totalTM + '\'' +
                 ", sellerName='" + sellerName + '\'' +
                 ", billTime='" + billTime + '\'' +
+                ", billNumber='" + billNumber + '\'' +
                 '}';
     }
 }

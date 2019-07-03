@@ -18,13 +18,22 @@ public class TxtInfoServiceImpl implements TxtInfoService {
     @Autowired
     private TxtInfoDao txtInfoDao;
 
+    //每次提交50个
     @Override
     public void createInsertList(List<TxtInfo> txtInfoList) {
-        if(txtInfoList.size()<=50){
-            txtInfoDao.insertList(txtInfoList);
-        }else {
-            List<TxtInfo> txtInfoList2 =new ArrayList();
-
+        //每次提交的个数
+        int count = 50;
+        int lastIndex = count;
+        for (int index = 0; index < txtInfoList.size(); index++) {
+            if (lastIndex > txtInfoList.size()) {
+                lastIndex=txtInfoList.size();
+                txtInfoDao.insertList(txtInfoList.subList(index,lastIndex));
+                break;
+            }else {
+                txtInfoDao.insertList(txtInfoList.subList(index,lastIndex));
+                index=lastIndex;
+                lastIndex=index+(count-1);
+            }
         }
 
 

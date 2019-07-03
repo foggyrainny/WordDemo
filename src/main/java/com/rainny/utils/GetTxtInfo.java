@@ -46,7 +46,9 @@ public class GetTxtInfo {
 //                        logger.info("开票日期=" + txtInfo.getBillTime());
                     }
 
-
+                }else if(temp != null &&temp.contains("发票号码")){
+                    txtInfo.setBillNumber(temp.substring(5));
+                    logger.error("发票号码"+temp);
                 }
 
             }

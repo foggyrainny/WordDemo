@@ -10,12 +10,13 @@
         <result column="totaltm" property="totalTM" jdbcType="VARCHAR" />
         <result column="sellername" property="sellerName" jdbcType="VARCHAR" />
         <result column="billtime" property="billTime" jdbcType="VARCHAR" />
+        <result column="billnumber" property="billNumber" jdbcType="VARCHAR" />
     </resultMap>
     <!--<resultMap id="ResultMapWithBLOBs" type="TxtInfo" extends="BaseResultMap" >-->
         <!--<result column="billTime" property="operMemo" jdbcType="LONGVARCHAR" />-->
     <!--</resultMap>-->
     <sql id="Base_Column_List" >
-        ID, txtname, readtime, totalmoney, totaltax, totaltm, sellername,billtime
+        ID, txtname, readtime, totalmoney, totaltax, totaltm, sellername,billtime,billnumber
     </sql>
 
    <!-- <sql id="getConditions">
@@ -122,10 +123,10 @@
     </insert>-->
     <!--open="(" separator="," close=")"-->
     <insert id="insertList" parameterType="java.util.List">
-        insert into txtinfo (txtname,readtime,totalmoney,totaltax,totaltm,sellername,billtime) values
+        insert into txtinfo (txtname,readtime,totalmoney,totaltax,totaltm,sellername,billtime,billnumber) values
         <foreach  collection="list" item="TxtInfo" index="index" separator="," >
             (#{TxtInfo.txtName},#{TxtInfo.readTime},#{TxtInfo.totalMoney},#{TxtInfo.totalTax},#{TxtInfo.totalTM},
-             #{TxtInfo.sellerName},#{TxtInfo.billTime}
+             #{TxtInfo.sellerName},#{TxtInfo.billTime},#{TxtInfo.billNumber}
             )
         </foreach>
     </insert>

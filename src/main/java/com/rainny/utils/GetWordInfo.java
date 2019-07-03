@@ -42,17 +42,20 @@ public class GetWordInfo {
         StringTokenizer token = new StringTokenizer(content, "\n");
         while (token.hasMoreTokens()) {
             String temp = token.nextToken();
-            if (temp.contains("合计金额")) {
+            if (temp != null &&temp.contains("合计金额")) {
                 txtInfo.setTotalMoney(temp.substring(5));
-            } else if (temp.contains("合计税额")) {
+            } else if (temp != null &&temp.contains("合计税额")) {
                 txtInfo.setTotalTax(temp.substring(5));
-            } else if (temp.contains("价税合计(小写)")) {
+            } else if (temp != null &&temp.contains("价税合计(小写)")) {
                 txtInfo.setTotalTM(temp.substring(9));
-            } else if (temp.contains("销货方名称")) {
+            } else if (temp != null &&temp.contains("销货方名称")) {
                 txtInfo.setSellerName(temp.substring(6));
-            } else if (temp.contains("开票日期")) {
+            } else if (temp != null &&temp.contains("开票日期")) {
                 txtInfo.setBillTime(temp.substring(5).replace("年", "").replace("月", "")
                         .replace("日", ""));
+            }else if(temp != null &&temp.contains("发票号码")){
+                txtInfo.setBillNumber(temp.substring(5));
+                logger.error("发票号码"+temp);
             }
         }
 
@@ -79,8 +82,9 @@ public class GetWordInfo {
             } else if (temp.contains("销货方名称")) {
                 String[] str = temp.split(":");
                 System.out.println("销货方名称=" + str[1]);
-            } else {
+            } else if(temp.contains("发票号码")){
 
+                System.out.println("发票号码=" + temp.substring(5));
             }
         }
     }

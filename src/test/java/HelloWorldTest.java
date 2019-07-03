@@ -1,3 +1,4 @@
+import com.rainny.utils.GetWordInfo;
 import com.rainny.utils.TestRight;
 import org.junit.Test;
 
@@ -9,6 +10,11 @@ public class HelloWorldTest {
     public void testHello(){
         Boolean b=TestRight.test(Double.valueOf(10.00),Double.valueOf(1.60),Double.valueOf(11.6));
         assertEquals(true,b);
+    }
+
+    @Test
+    public void testHello2(){
+        GetWordInfo.readWord("d://文档");
     }
 
 }
