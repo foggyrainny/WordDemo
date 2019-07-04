@@ -6,7 +6,7 @@ import com.rainny.service.TxtInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ public class TxtInfoServiceImpl implements TxtInfoService {
         //每次提交的个数
         int count = 50;
         int lastIndex = count;
-        for (int index = 0; index < txtInfoList.size(); index++) {
+        for (int index = 0; index < txtInfoList.size();) {
             if (lastIndex > txtInfoList.size()) {
                 lastIndex=txtInfoList.size();
                 txtInfoDao.insertList(txtInfoList.subList(index,lastIndex));
@@ -32,10 +32,15 @@ public class TxtInfoServiceImpl implements TxtInfoService {
             }else {
                 txtInfoDao.insertList(txtInfoList.subList(index,lastIndex));
                 index=lastIndex;
-                lastIndex=index+(count-1);
+                lastIndex=index+count-1;
             }
         }
 
 
+    }
+
+    @Override
+    public void createBatchList(List<TxtInfo> txtInfoList) throws SQLException {
+       txtInfoDao.addBatch(txtInfoList);
     }
 }

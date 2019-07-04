@@ -84,7 +84,7 @@ public class TxtInfoController {
 
                     }
                 } catch (Exception e) {
-                   logger.error(e);
+                    logger.error(e);
                 }
 
 
@@ -92,19 +92,26 @@ public class TxtInfoController {
 
 //           logger.info(list.size());
         }
-        if(!"\n".equals(stringBuilder)){
+        if (!"\n".equals(stringBuilder)) {
             logger.error("数据正确性验证不通过的文档：" + stringBuilder);
         }
 
         logger.error("list=" + list.size());
-        if(null!=list&&list.size()>0){
+        if (null != list && list.size() > 0) {
             txtInfoService.createInsertList(list);
-        }else {
-            logger.error(path+" 该文件夹下没有合法格式的文档或者没用数据验证通过的文档，或者该文件格式不支持解析");
+        } else {
+            logger.error(path + " 该文件夹下没有合法格式的文档或者没用数据验证通过的文档，或者该文件格式不支持解析");
         }
 
         return "commited counts: " + list.size();
     }
 
+    @RequestMapping(value = "/insertBatch")
+    @ResponseBody
+    public String insertBatch(HttpServletRequest request, @RequestParam("path") String path) {
 
+
+        return "commited counts: " ;
+
+    }
 }

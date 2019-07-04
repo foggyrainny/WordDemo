@@ -2,6 +2,7 @@ package com.rainny.service;
 
 import com.rainny.object.TxtInfo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,5 +12,6 @@ public interface TxtInfoService {
 
     void  createInsertList(List<TxtInfo>  txtInfoList );
 
+    void  createBatchList(List<TxtInfo>  txtInfoList) throws SQLException;
 
 }

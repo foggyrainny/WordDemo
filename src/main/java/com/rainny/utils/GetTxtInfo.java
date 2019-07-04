@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/6/17.
@@ -20,7 +22,7 @@ public class GetTxtInfo {
             String temp = "";// 用于临时保存每次读取的内容
             while (temp != null) {
                 temp = br.readLine();
-//                logger.error(temp);
+               logger.error(temp);
                 String str = "";//临时string变量
                 if (temp != null && temp.contains("合计金额")) {
                     str = temp.substring(5);
@@ -63,7 +65,7 @@ public class GetTxtInfo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 //        File file = new File("D:\\文档");
 //        File[] filePaths = file.listFiles();
@@ -90,5 +92,20 @@ public class GetTxtInfo {
 //            logger.info(list.size());
 //        }
 //
+        File file = new File("D:\\测试");
+        File[] filePaths = file.listFiles();
+        List<TxtInfo> list = new ArrayList<>();
+        for (File s : filePaths) {
+            InputStreamReader fr = new InputStreamReader(new FileInputStream(s.toString()), "UTF-8");
+            BufferedReader br = new BufferedReader(fr);
+            String temp = "";// 用于临时保存每次读取的内容
+            while (temp != null) {
+                temp = br.readLine();
+                System.out.println("test:  "+temp);
+            }
+            br.close();
+            fr.close();
+    }
+
     }
 }

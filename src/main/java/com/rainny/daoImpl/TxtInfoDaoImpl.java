@@ -24,7 +24,7 @@ public class TxtInfoDaoImpl implements TxtInfoDao {
     private SqlSessionTemplate sqlSessionTemplate;
 
     public SqlSessionTemplate getSqlSessionTemplate() {
-        logger.info(this.sqlSessionTemplate);
+
         return this.sqlSessionTemplate;
     }
 
@@ -33,19 +33,33 @@ public class TxtInfoDaoImpl implements TxtInfoDao {
 
         this.getSqlSessionTemplate().insert("insertList", txtInfoList);
     }
-
+    @Override
     public void addBatch(List<TxtInfo> txtInfoList) throws SQLException {
-        SqlSession sqlSession=sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH,false);
+        SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
         sqlSession.getConnection().setAutoCommit(false);
-        TxtInfoDaoImpl txtInfoDao=sqlSession.getMapper(TxtInfoDaoImpl.class);
-        int size=10;
+        TxtInfoDaoImpl txtInfoDao = sqlSession.getMapper(TxtInfoDaoImpl.class);
+        int size = 500;
+        int lastindex = size;
         try {
-            for(int i=0;i<size;i++){
-                txtInfoDao.insertList(txtInfoList);
-            }
-        }catch (Exception e){
+            for (int index = 0; index < txtInfoList.size();) {
+                if (lastindex > txtInfoList.size()) {
+                    lastindex = txtInfoList.size();
+                    sqlSession.insert("insertList", txtInfoList.subList(index, lastindex));
+                    sqlSession.commit();
+                    break;
+                } else {
+                    sqlSession.insert("insertList", txtInfoList.subList(index, lastindex));
+                    sqlSession.commit();
+                    index = lastindex;
+                    lastindex = index + size ;
+                }
 
-        }finally {
+
+            }
+        } catch (Exception e) {
+            sqlSession.rollback();
+            logger.error(e);
+        } finally {
             sqlSession.close();
         }
     }
@@ -64,4 +78,5 @@ public class TxtInfoDaoImpl implements TxtInfoDao {
     public void getOne(TxtInfo txtInfo) {
         this.getSqlSessionTemplate().selectOne("getOne", txtInfo);
     }
-*/}
+*/
+}
