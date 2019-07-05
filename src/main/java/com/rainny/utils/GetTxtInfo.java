@@ -67,7 +67,7 @@ public class GetTxtInfo {
         }
     }
 
-    public  static void readWanted(String path) throws IOException{
+    public  static Data readWanted(String path) throws IOException{
                 Data data=new Data();
                 InputStreamReader fr = new InputStreamReader(new FileInputStream(path));
                 BufferedReader br = new BufferedReader(fr);
@@ -89,17 +89,20 @@ public class GetTxtInfo {
                 }
                 br.close();
                 fr.close();
+                return data;
     }
 
-    public static void traverseFolder(String path) throws  IOException {
+    public static List<Data> traverseFolder(String path) throws  IOException {
         int fileNum = 0, folderNum = 0;
+        List<Data> dataList=new ArrayList<>();
         File file = new File(path);
         if (file.exists()) {
             LinkedList<File> list = new LinkedList<File>();
             File[] files = file.listFiles();
             for (File file2 : files) {
                 if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
-                    readWanted(file2.getAbsolutePath());
+                    Data data=  readWanted(file2.getAbsolutePath());
+                    dataList.add(data);
                     fileNum++;
 
                 } else {
@@ -114,7 +117,8 @@ public class GetTxtInfo {
                 if(files!=null){
                     for (File file2 : files) {
                         if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
-                            readWanted(file2.getAbsolutePath());
+                            Data data= readWanted(file2.getAbsolutePath());
+                            dataList.add(data);
                             fileNum++;
 
                         } else {
@@ -129,7 +133,7 @@ public class GetTxtInfo {
             System.out.println("文件不存在!");
         }
         System.out.println("文件夹共有:" + folderNum + ",文件共有:" + fileNum);
-
+         return  dataList;
     }
 
     public static void main(String[] args) throws IOException {

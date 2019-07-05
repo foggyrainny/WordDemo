@@ -32,7 +32,7 @@ public class DataDaoImpl implements DataDao{
     public void insertList(List<Data> dataList) throws SQLException{
         SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
         sqlSession.getConnection().setAutoCommit(false);
-        DataDaoImpl dataDao = sqlSession.getMapper(DataDaoImpl.class);
+//        DataDaoImpl dataDao = sqlSession.getMapper(DataDaoImpl.class);
         int size = 800;
         int lastindex = size;
         try {
