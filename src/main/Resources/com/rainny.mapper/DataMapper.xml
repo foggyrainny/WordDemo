@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rainny.mapper.DataMapper" >
+    <resultMap id="BaseResultMap" type="Data" >
+        <id column="ID" property="id" jdbcType="BIGINT" />
+        <result column="miRNA_ID" property="miRNA_ID" jdbcType="VARCHAR" />
+        <result column="read_count" property="read_count" jdbcType="VARCHAR" />
+        <result column="miRNA_mapped" property="miRNA_mapped" jdbcType="VARCHAR" />
+        <result column="cross_mapped" property="cross_mapped" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID, miRNA_ID,read_count,miRNA_mapped,cross_mapped
+    </sql>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into get_data (miRNA_ID,read_count,miRNA_mapped,cross_mapped) values
+        <foreach  collection="list" item="Data" index="index" separator="," >
+            (#{Data.miRNA_ID},#{Data.read_count},#{Data.miRNA_mapped},#{Data.cross_mapped}}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>
