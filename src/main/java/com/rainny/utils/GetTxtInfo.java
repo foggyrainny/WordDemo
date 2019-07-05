@@ -1,11 +1,13 @@
 package com.rainny.utils;
 
+import com.rainny.object.Data;
 import com.rainny.object.TxtInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -65,6 +67,71 @@ public class GetTxtInfo {
         }
     }
 
+    public  static void readWanted(String path) throws IOException{
+                Data data=new Data();
+                InputStreamReader fr = new InputStreamReader(new FileInputStream(path));
+                BufferedReader br = new BufferedReader(fr);
+                String temp = "";// 用于临时保存每次读取的内容
+                while (temp != null) {
+                    temp = br.readLine();
+                    String[] strs=null;
+                   if(null!=temp){
+                       strs = temp.split("\\t");
+                       if(strs.length>0){
+                         data.setMiRNA_ID(strs[0]);
+                         data.setRead_count(strs[1]);
+                         data.setMiRNA_mapped(strs[2]);
+                         data.setCross_mapped(strs[3]);
+                       }
+
+                   }
+
+                }
+                br.close();
+                fr.close();
+    }
+
+    public static void traverseFolder(String path) throws  IOException {
+        int fileNum = 0, folderNum = 0;
+        File file = new File(path);
+        if (file.exists()) {
+            LinkedList<File> list = new LinkedList<File>();
+            File[] files = file.listFiles();
+            for (File file2 : files) {
+                if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
+                    readWanted(file2.getAbsolutePath());
+                    fileNum++;
+
+                } else {
+                    list.add(file2);
+                    folderNum++;
+                }
+            }
+            File temp_file;
+            while (!list.isEmpty()) {
+                temp_file = list.removeFirst();
+                files = temp_file.listFiles();
+                if(files!=null){
+                    for (File file2 : files) {
+                        if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
+                            readWanted(file2.getAbsolutePath());
+                            fileNum++;
+
+                        } else {
+                            list.add(file2);
+                            folderNum++;
+                        }
+                    }
+                }
+
+            }
+        } else {
+            System.out.println("文件不存在!");
+        }
+        System.out.println("文件夹共有:" + folderNum + ",文件共有:" + fileNum);
+
+    }
+
     public static void main(String[] args) throws IOException {
 
 //        File file = new File("D:\\文档");
@@ -92,20 +159,38 @@ public class GetTxtInfo {
 //            logger.info(list.size());
 //        }
 //
-        File file = new File("D:\\测试");
-        File[] filePaths = file.listFiles();
-        List<TxtInfo> list = new ArrayList<>();
-        for (File s : filePaths) {
-            InputStreamReader fr = new InputStreamReader(new FileInputStream(s.toString()), "UTF-8");
-            BufferedReader br = new BufferedReader(fr);
-            String temp = "";// 用于临时保存每次读取的内容
-            while (temp != null) {
-                temp = br.readLine();
-                System.out.println("test:  "+temp);
-            }
-            br.close();
-            fr.close();
-    }
+//        File file = new File("D:\\test");
+//        File[] filePaths = file.listFiles();
+//        for(int i=0;i<filePaths.length;i++){
+//           File sfile=filePaths[i];
+//           if(sfile.isFile()){
+//               InputStreamReader fr = new InputStreamReader(new FileInputStream(sfile.toString()), "UTF-8");
+//               BufferedReader br = new BufferedReader(fr);
+//               String temp = "";// 用于临时保存每次读取的内容
+//               while (temp != null) {
+//                   temp = br.readLine();
+//                   System.out.println("test:  "+temp);
+//               }
+//               br.close();
+//               fr.close();
+//           }else {
+//
+//           }
+//        }
 
+//        for (File s : filePaths) {
+//            InputStreamReader fr = new InputStreamReader(new FileInputStream(s.toString()), "UTF-8");
+//            BufferedReader br = new BufferedReader(fr);
+//            String temp = "";// 用于临时保存每次读取的内容
+//            while (temp != null) {
+//                temp = br.readLine();
+//                System.out.println("test:  "+temp);
+//            }
+//            br.close();
+//            fr.close();
+//    }
+        GetTxtInfo.traverseFolder("D:\\test");
+
+        String a="hsa-mir-8069-1\t0\t0.000000\tN";
     }
 }

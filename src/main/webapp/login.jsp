@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td>密码：</td>
-                    <td><input class="easyui-textbox" name="password" data-options="required:true"></td>
+                    <td><input class="easyui-textbox"  id="password" name="password" data-options="required:true"></td>
                 </tr>
             </table>
 
@@ -48,15 +48,25 @@
       // $("#ff").form("submit");
       var path=$("#name").val();
       $("a").attr("disabled",true);
-      $.ajax({
-          url: './demo/insertList?path='+path,
-          type:"GET",
-          // data:{"path":path},
-          success:function (data) {
-              $.messager.alert("通过的文档数目",data);
-              $("a").attr("disabled",false);
-          }
-      })
+//      $.ajax({
+//          url: './demo/insertList?path='+path,
+//          type:"GET",
+//          // data:{"path":path},
+//          success:function (data) {
+//              $.messager.alert("通过的文档数目",data);
+//              $("a").attr("disabled",false);
+//          }
+//      })
+
+        $.ajax({
+            url: './data/list?path='+$("#password").val(),
+            type:"GET",
+            // data:{"path":path},
+            success:function (data) {
+//                $.messager.alert("通过的文档数目",data);
+//                $("a").attr("disabled",false);
+            }
+        })
     }
     function  clearForm() {
         $("#ff").form("clear");
