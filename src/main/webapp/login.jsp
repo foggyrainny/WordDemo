@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: rainny
+  User: rainy
   Date: 2019/6/13
   Time: 11:13
   To change this template use File | Settings | File Templates.
@@ -38,16 +38,23 @@
         </form>
     </div>
     <div style="text-align: center;padding: 5px">
-        <a href="javascript:void(0)" class="easyui-linkbuton" onclick="submitForm()">提交</a>
+        <a href="javascript:void(0)" id="submit1" class="easyui-linkbuton" onclick="submitForm()">提交</a>
+        <a href="javascript:return false" style="color: grey;" id="submit2" class="easyui-linkbuton" onclick="submitForm()">提交</a>
         <a href="javascript:void(0)" class="easyui-linkbuton" onclick="clearForm()">重置</a>
     </div>
 </div>
 </body>
 <script type="text/javascript">
+    $(function () {
+        $("#submit1").show();
+        $("#submit2").hide();
+    })
     function submitForm() {
       // $("#ff").form("submit");
-      var path=$("#name").val();
-      $("a").attr("disabled",true);
+      var path=$("#name");
+      $("#submit1").hide();
+      $("#submit2").show();
+      // $("#submit1").removeAttribute("href");
 //      $.ajax({
 //          url: './demo/insertList?path='+path,
 //          type:"GET",
@@ -61,10 +68,18 @@
         $.ajax({
             url: './data/list?path='+$("#password").val(),
             type:"GET",
+            timeout:3000,
             // data:{"path":path},
             success:function (data) {
-//                $.messager.alert("通过的文档数目",data);
-//                $("a").attr("disabled",false);
+                if(data!=null){
+                    $("#submit1").show();
+                    $("#submit2").hide();
+                }
+
+            },
+            error:function (XMLHttpRequest,textStatus,errorThrown) {
+                $("#submit1").show();
+                $("#submit2").hide();
             }
         })
     }
