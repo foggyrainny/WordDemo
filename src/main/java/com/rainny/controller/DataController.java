@@ -30,10 +30,11 @@ public class DataController {
     @Resource
     private DataService dataService;
 
+
     @RequestMapping("/list")
     @ResponseBody
     public  String insert(HttpServletRequest request, @RequestParam("path") String path) throws IOException, SQLException {
-        path="d:\\测试";
+        path="d:\\test";
         List<Data> dataList= GetTxtInfo.traverseFolder(path);
         dataService.createInserList(dataList);
         return "l00";

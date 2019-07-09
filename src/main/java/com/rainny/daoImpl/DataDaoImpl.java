@@ -23,6 +23,8 @@ public class DataDaoImpl implements DataDao{
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
+    private static final String  NAMESPACE="com.rainny.mapper.DataMapper.";
+
     public SqlSessionTemplate getSqlSessionTemplate() {
 
         return this.sqlSessionTemplate;
@@ -39,11 +41,11 @@ public class DataDaoImpl implements DataDao{
             for (int index = 0; index < dataList.size();) {
                 if (lastindex > dataList.size()) {
                     lastindex = dataList.size();
-                    sqlSession.insert("insertList", dataList.subList(index, lastindex));
+                    sqlSession.insert(NAMESPACE+"insertList", dataList.subList(index, lastindex));
                     sqlSession.commit();
                     break;
                 } else {
-                    sqlSession.insert("insertList", dataList.subList(index, lastindex));
+                    sqlSession.insert(NAMESPACE+"insertList", dataList.subList(index, lastindex));
                     sqlSession.commit();
                     index = lastindex;
                     lastindex = index + size ;

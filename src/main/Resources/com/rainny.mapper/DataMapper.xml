@@ -14,9 +14,9 @@
     </sql>
 
     <insert id="insertList" parameterType="java.util.List">
+        <foreach  collection="list" item="Data" index="index" separator=";" >
         insert into get_data (miRNA_ID,read_count,miRNA_mapped,cross_mapped) values
-        <foreach  collection="list" item="Data" index="index" separator="," >
-            (#{Data.miRNA_ID},#{Data.read_count},#{Data.miRNA_mapped},#{Data.cross_mapped}}
+            (#{Data.miRNA_ID},#{Data.read_count},#{Data.miRNA_mapped},#{Data.cross_mapped}
             )
         </foreach>
     </insert>

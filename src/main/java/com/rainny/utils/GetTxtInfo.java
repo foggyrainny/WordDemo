@@ -24,7 +24,7 @@ public class GetTxtInfo {
             String temp = "";// 用于临时保存每次读取的内容
             while (temp != null) {
                 temp = br.readLine();
-               logger.error(temp);
+                logger.error(temp);
                 String str = "";//临时string变量
                 if (temp != null && temp.contains("合计金额")) {
                     str = temp.substring(5);
@@ -50,9 +50,9 @@ public class GetTxtInfo {
 //                        logger.info("开票日期=" + txtInfo.getBillTime());
                     }
 
-                }else if(temp != null &&temp.contains("发票号码")){
+                } else if (temp != null && temp.contains("发票号码")) {
                     txtInfo.setBillNumber(temp.substring(5));
-                    logger.error("发票号码"+temp);
+                    logger.error("发票号码" + temp);
                 }
 
             }
@@ -67,44 +67,43 @@ public class GetTxtInfo {
         }
     }
 
-    public  static Data readWanted(String path) throws IOException{
-                Data data=new Data();
-                InputStreamReader fr = new InputStreamReader(new FileInputStream(path));
-                BufferedReader br = new BufferedReader(fr);
-                String temp = "";// 用于临时保存每次读取的内容
-                while (temp != null) {
-                    temp = br.readLine();
-                    String[] strs=null;
-                   if(null!=temp){
-                       strs = temp.split("\\t");
-                       if(strs.length>0){
-                         data.setMiRNA_ID(strs[0]);
-                         data.setRead_count(strs[1]);
-                         data.setMiRNA_mapped(strs[2]);
-                         data.setCross_mapped(strs[3]);
-                       }
+    public static List<Data> readWanted(String path, List<Data> dataList) throws IOException {
 
-                   }
-
+        InputStreamReader fr = new InputStreamReader(new FileInputStream(path));
+        BufferedReader br = new BufferedReader(fr);
+        String temp = "";// 用于临时保存每次读取的内容
+        while (temp != null) {
+            temp = br.readLine();
+            String[] strs = null;
+            if (null != temp&&!temp.contains("miRNA_ID")) {
+                strs = temp.split("\\t");
+                if (strs.length > 0) {
+                    Data data = new Data();
+                    data.setMiRNA_ID(strs[0]);
+                    data.setRead_count(strs[1]);
+                    data.setMiRNA_mapped(strs[2]);
+                    data.setCross_mapped(strs[3]);
+                    dataList.add(data);
                 }
-                br.close();
-                fr.close();
-                return data;
+
+            }
+
+        }
+        br.close();
+        fr.close();
+        return dataList;
     }
 
-    public static List<Data> traverseFolder(String path) throws  IOException {
+    public static List<Data> traverseFolder(String path) throws IOException {
         int fileNum = 0, folderNum = 0;
-        List<Data> dataList=new ArrayList<>();
+        List<String> fileList = new ArrayList<>();
         File file = new File(path);
         if (file.exists()) {
             LinkedList<File> list = new LinkedList<File>();
             File[] files = file.listFiles();
             for (File file2 : files) {
-                if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
-                    Data data=  readWanted(file2.getAbsolutePath());
-                    dataList.add(data);
-                    fileNum++;
-
+                if (file2.isFile() && file2.getAbsolutePath().endsWith("quantification.txt")) {
+                    fileList.add(file2.getAbsolutePath());
                 } else {
                     list.add(file2);
                     folderNum++;
@@ -114,11 +113,10 @@ public class GetTxtInfo {
             while (!list.isEmpty()) {
                 temp_file = list.removeFirst();
                 files = temp_file.listFiles();
-                if(files!=null){
+                if (files != null) {
                     for (File file2 : files) {
-                        if (file2.isFile()&&file2.getAbsolutePath().endsWith("quantification.txt")) {
-                            Data data= readWanted(file2.getAbsolutePath());
-                            dataList.add(data);
+                        if (file2.isFile() && file2.getAbsolutePath().endsWith("quantification.txt")) {
+                            fileList.add(file2.getAbsolutePath());
                             fileNum++;
 
                         } else {
@@ -133,7 +131,11 @@ public class GetTxtInfo {
             System.out.println("文件不存在!");
         }
         System.out.println("文件夹共有:" + folderNum + ",文件共有:" + fileNum);
-         return  dataList;
+        List<Data> dataList = new ArrayList<>();
+        for (String s : fileList) {
+            GetTxtInfo.readWanted(s, dataList);
+        }
+        return dataList;
     }
 
     public static void main(String[] args) throws IOException {
@@ -195,6 +197,6 @@ public class GetTxtInfo {
 //    }
         GetTxtInfo.traverseFolder("D:\\test");
 
-        String a="hsa-mir-8069-1\t0\t0.000000\tN";
+        String a = "hsa-mir-8069-1\t0\t0.000000\tN";
     }
 }
