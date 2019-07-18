@@ -2,6 +2,7 @@ package com.rainny.object;
 
 /**
  * Created by rainy on 2019/7/4.
+ * 用于统计特定文档的数据
  */
 public class Data {
 
