@@ -16,10 +16,9 @@ public class SysRole  {
 
     private Boolean available = Boolean.FALSE;// 是否可用,如果不可用将不会添加给用户
 
-    private List<SysPermission> permissions;
+    private List<SysPermission> permissions; //权限
 
-    private List<SysUser> userList;
-
+    private List<SysUser> userList;//用户列表
 
     public Integer getId() {
         return id;

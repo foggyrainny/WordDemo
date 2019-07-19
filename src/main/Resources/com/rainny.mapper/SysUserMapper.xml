@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainny.mapper.SysUerMapper" >
-    <resultMap id="BaseResultMap" type="Data" >
-        <id column="ID" property="id" jdbcType="BIGINT" />
-        <result column="miRNA_ID" property="miRNA_ID" jdbcType="VARCHAR" />
-        <result column="read_count" property="read_count" jdbcType="VARCHAR" />
-        <result column="miRNA_mapped" property="miRNA_mapped" jdbcType="VARCHAR" />
-        <result column="cross_mapped" property="cross_mapped" jdbcType="VARCHAR" />
-        <!--<collection property="">-->
+    <resultMap id="BaseResultMap" type="SysUser" >
+        <id column="uid" property="uid" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="salt" property="salt" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <association property="roleList" javaType="SysRole">
+            <!--<id property="id" column="id" ></id>-->
+            <!--<result property="name" column="name"></result>-->
+            <!--<result property="resourceType" column="resourceType"></result>-->
+            <!--<result property="url" column="url"></result>-->
+            <!--<result property="perm6ission" column="permission"></result>-->
+            <!--<result property="parentid" column="parentid"></result>-->
+            <!--<result property="parentids" column="parentids"></result>-->
+            <!--<result property="available" column="available"></result>-->
+            <id property="id" column="id"></id>
+            <result property="role" column="role"></result>
+            <result property="description" column="description"></result>
+            <result property="available" column="available"></result>
+        </association>
     </resultMap>
 
-    <sql id="Base_Column_List" >
-        ID, miRNA_ID,read_count,miRNA_mapped,cross_mapped
-    </sql>
+    <!--<sql id="Base_Column_List" >-->
+        <!--ID, miRNA_ID,read_count,miRNA_mapped,cross_mapped-->
+    <!--</sql>-->
 
-    <insert id="insertList" parameterType="java.util.List">
-        <foreach  collection="list" item="Data" index="index" separator=";" >
-            insert into get_data (miRNA_ID,read_count,miRNA_mapped,cross_mapped) values
-            (#{Data.miRNA_ID},#{Data.read_count},#{Data.miRNA_mapped},#{Data.cross_mapped}
-            )
-        </foreach>
-    </insert>
+    <select id="findUserByUserName" resultMap="BaseResultMap" parameterType="SysUser">
+       select  *  from  user_info where username=#{username}
+    </select>
+    <select id="findUserPermissions" parameterType="integer" resultType="string">
+    select m.permission
+    from user_info u join sys_roles ur join sys_role_permission rm
+    join sys_permission m
+    on u.id=ur.user_id and ur.role_id = rm.role_id and rm.menu_id = m.id
+    where u.username = #{username}
+</select>
 
 
 </mapper>

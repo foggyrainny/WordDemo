@@ -22,9 +22,9 @@ public class SysPermission {
 
     private String parentids;
 
-    private Boolean avaivable = Boolean.FALSE;
+    private Boolean available = Boolean.FALSE;
 
-    private List<SysRole> roles;
+    private List<SysRole> roles;//角色列表
 
     public Integer getId() {
         return id;
@@ -82,12 +82,12 @@ public class SysPermission {
         this.parentids = parentids;
     }
 
-    public Boolean getAvaivable() {
-        return avaivable;
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public void setAvaivable(Boolean avaivable) {
-        this.avaivable = avaivable;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public List<SysRole> getRoles() {
