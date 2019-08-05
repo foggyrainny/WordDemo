@@ -9,7 +9,7 @@ public class TxtInfo {
     //文档名称
     private  String txtName;
     //存入数据库时间
-    private String   readTime;
+    private String  readTime;
     //合计金额
     private String totalMoney;
     //合计税额
